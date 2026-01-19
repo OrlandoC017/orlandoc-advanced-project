@@ -6,8 +6,6 @@ import { RiLeafLine } from "react-icons/ri";
 import Sidebar from "@/app/components/sidebar";
 
 export default function Home() {
-  return (
-    <Sidebar/>  )
 
   return (
     <div>
