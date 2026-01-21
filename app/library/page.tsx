@@ -47,9 +47,6 @@ export default function page() {
       <main>
         <section id="recommended">
           <div className="for-you-container">
-            <div className="for-you-section">
-              <Selected />
-            </div>
             
             <div className="for-you-section">
               <LibraryScrollRecommended />

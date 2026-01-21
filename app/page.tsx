@@ -1,24 +1,30 @@
+"use client"
+import React from "react";
 import Image from "next/image";
 import { AiFillFileText, AiFillBulb, AiFillAudio } from "react-icons/ai";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { BiCrown } from "react-icons/bi";
 import { RiLeafLine } from "react-icons/ri";
 import Sidebar from "@/app/components/sidebar";
+import LoginModal from "./components/LoginModal";
 
 export default function Home() {
-
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
-    <div>
-      <main>
-        
-        <body>
+    <>
+      <LoginModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <div>
+        <main>
+          <body>
     <nav className="nav">
       <div className="nav__wrapper">
         <figure className="nav__img--mask">
           <img className="nav__img" src="/logo.png" alt="logo" />
         </figure>
         <ul className="nav__list--wrapper">
-          <li className="nav__list nav__list--login">Login</li>
+          <li className="nav__list nav__list--login" onClick={() => setIsOpen(true)}>
+            Login
+          </li>
           <li className="nav__list nav__list--mobile">About</li>
           <li className="nav__list nav__list--mobile">Contact</li>
           <li className="nav__list nav__list--mobile">Help</li>
@@ -41,7 +47,9 @@ export default function Home() {
                 <br className="remove--tablet" />
                 and even people who don’t like to read.
               </div>
-              <button className="btn home__cta--btn">Login</button>
+              <button className="btn home__cta--btn" onClick={() => setIsOpen(true)}>
+                Login
+              </button>
             </div>
             <figure className="landing__image--mask">
               <img src="/landing.png" alt="landing" />
@@ -339,10 +347,9 @@ export default function Home() {
         </div>
       </div>
     </section>
-  </body>
-
-
-      </main>
-    </div>
+          </body>
+        </main>
+      </div>
+    </>
   );
 }

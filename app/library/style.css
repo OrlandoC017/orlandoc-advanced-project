@@ -1,0 +1,56 @@
+.landing__title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #032b41;
+    text-align: center;
+}
+
+#recommended {
+	display: flex;
+	width: calc(100% - 200px);
+	margin-left: 200px;
+	padding: 40px 0;
+	justify-content: center;
+}
+
+.for-you-container {
+	max-width: 1400px;
+	width: 100%;
+	padding: 0 24px;
+}
+
+/* Page Section Styling */
+.for-you-section {
+	margin-bottom: 60px;
+}
+
+.for-you-section:first-child {
+	margin-top: 20px;
+}
+
+.for-you-section h2 {
+	font-size: 1.75rem;
+	font-weight: 600;
+	color: #032b41;
+	margin-bottom: 24px;
+	padding-bottom: 12px;
+	border-bottom: 2px solid #f0f0f0;
+}
+
+/* Responsive spacing */
+@media (max-width: 768px) {
+	.landing__title {
+		font-size: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.for-you-section h2 {
+		font-size: 1.3rem;
+		margin-bottom: 16px;
+	}
+
+	#recommended {
+		padding: 20px 0;
+	}
+}

@@ -1,6 +1,12 @@
-import type { Metadata } from "next";
+
+
+import { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
+import Searchbar from "../components/searchbar";
+import Sidebar from "../components/sidebar";
+import Recommended from "../components/recommended";
+import { ReactNode } from "react";
 
 
 const geistSans = Geist({
@@ -23,16 +29,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Searchbar />
         <div className="flex flex-col">
-        
+          
         {children}
+        <Sidebar />
         </div>
-       
+        
         
       </body>
     </html>
