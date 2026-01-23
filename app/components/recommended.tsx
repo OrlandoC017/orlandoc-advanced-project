@@ -3,6 +3,7 @@
 import React, { useState, useEffect, ReactNode } from 'react'
 import Link from "next/link";
 import { CirclePlay } from 'lucide-react';
+import { SkeletonSelectedBook } from './SkeletonLoader';
 
 const API_URL = 'https://us-central1-summaristt.cloudfunctions.net/getBooks?status=selected'
 
@@ -40,7 +41,15 @@ export default function Selected() {
     fetchBooks()
   }, [])
 
-  if (loading) return null
+  if (loading) {
+    return (
+      <div className="row">
+        <div className="skeleton-section-heading"></div>
+        <SkeletonSelectedBook />
+      </div>
+    )
+  }
+  
   if (error) return <div>Error: {error}</div>
 
   return (
@@ -48,7 +57,7 @@ export default function Selected() {
       <div className="row">
         <h2 className="landing__title">Selected just for You</h2>
         {books.map((book) => (
-          <Link key={book.id} href={`/book/${book.id}?title=${encodeURIComponent(book.title)}&author=${encodeURIComponent(book.author)}&subtitle=${encodeURIComponent(book.subtitle)}`} className='selected-book'>
+          <Link key={book.id} href={`/book/${book.id}`} className='selected-book'>
             <div className="recommended__book--wrapper">
               <figcaption className="recommended__book--caption">
                 <h3 className="recommended__book--subtitle">"{book.subTitle}"</h3>

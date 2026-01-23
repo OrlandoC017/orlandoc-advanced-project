@@ -1,0 +1,83 @@
+.sidebar--player {
+  height: calc(100vh - 120px);
+}
+
+.sidebar__wrapper--player {
+  height: calc(100vh - 120px - 60px);
+}
+
+.sidebar__text-size-section {
+  margin-top: 32px;
+  padding: 16px 12px;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.sidebar__text-size-label {
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #032b41;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar__text-size-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sidebar__text-size-btn {
+  background-color: #e2e8f0;
+  border: 2px solid #e2e8f0;
+  color: #032b41;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  padding: 8px 12px;
+}
+
+.sidebar__text-size-btn--small {
+  font-size: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar__text-size-btn--medium {
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar__text-size-btn--large {
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar__text-size-btn:hover {
+  background-color: #cbd5e1;
+  border-color: #cbd5e1;
+}
+
+.sidebar__text-size-btn--active {
+  background-color: #0365f2;
+  border-color: #0365f2;
+  color: white;
+}
+
+.sidebar__text-size-btn--active:hover {
+  background-color: #0252c4;
+  border-color: #0252c4;
+}

@@ -5,7 +5,6 @@
 import React, { useEffect, useState } from "react";
 import Searchbar from "../../components/searchbar";
 import Sidebar from "../../components/sidebar";
-import { SkeletonBookPage } from "../../components/SkeletonLoader";
 import "../[bookId]/style.css";
 import {
   Bookmark,
@@ -18,7 +17,10 @@ import {
   Star,
 } from "lucide-react";
 import { BiMicrophone } from "react-icons/bi";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
+import Link from "next/link";
+import { SkeletonBookPage } from "../../components/SkeletonLoader";
 
 interface Book {
   id: string;
@@ -44,18 +46,30 @@ export default function page() {
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { id } = useParams();
+  const [audioDuration, setAudioDuration] = useState<string>("Loading...");
+  const audioRef = React.useRef<HTMLAudioElement>(null);
+  const params = useParams();
+  const router = useRouter();
+  const { isLoggedIn, userPlan } = useAuth();
+  const bookId = (params as { bookId: string }).bookId;
 
   const handleBookmarkClick = () => {
     setIsAdded(!isAdded);
   };
 
+  const getButtonHref = (): string => {
+    if (book?.subscriptionRequired && userPlan !== 'premium') {
+      return '/choose-plan';
+    }
+    return `/player/${bookId}`;
+  };
+
   useEffect(() => {
-    if (!id) return;
+    if (!bookId) return;
 
     const fetchBooks = async () => {
       try {
-        const API_URL = `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`;
+        const API_URL = `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${bookId}`;
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
 
@@ -68,6 +82,11 @@ export default function page() {
         const data = await response.json();
         setBook(data);
         setLoading(false);
+
+        // Check if book requires subscription and user is not logged in
+        if (data.subscriptionRequired && !isLoggedIn) {
+          router.push("/choose-plan");
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
         setLoading(false);
@@ -75,7 +94,27 @@ export default function page() {
     };
 
     fetchBooks();
-  }, [id]);
+  }, [bookId]);
+
+  useEffect(() => {
+    if (book?.audioLink && audioRef.current) {
+      const audio = audioRef.current;
+      
+      const handleLoadedMetadata = () => {
+        const duration = audio.duration;
+        const minutes = Math.floor(duration / 60);
+        const seconds = Math.floor(duration % 60);
+        setAudioDuration(`${minutes} min ${seconds} sec`);
+      };
+
+      audio.src = book.audioLink;
+      audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+      
+      return () => {
+        audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      };
+    }
+  }, [book?.audioLink]);
 
   if (loading) {
     return (
@@ -97,6 +136,7 @@ export default function page() {
 
   return (
     <div>
+      <audio ref={audioRef} style={{ display: 'none' }} />
       <Searchbar />
       <Sidebar />
       <main>
@@ -120,7 +160,7 @@ export default function page() {
                   </div>
                   <div className="inner__book-description">
                     <Clock />
-                    Audio Runtime
+                    {audioDuration}
                   </div>
                   <div className="inner__book-description">
                     <Mic />
@@ -132,14 +172,14 @@ export default function page() {
                   </div>
                 </div>
                 <div className="inner__book-button--wrapper">
-                  <button className="inner-book__read--btn">
+                  <Link href={getButtonHref()} className="inner-book__read--btn">
                     <BookOpenText />
                     Read
-                  </button>
-                  <button className="inner-book__read--btn">
+                  </Link>
+                  <Link href={getButtonHref()} className="inner-book__read--btn">
                     <Headphones />
                     Listen
-                  </button>
+                  </Link>
                 </div>
 
                 <button
@@ -151,6 +191,14 @@ export default function page() {
                     ? "Title added to library"
                     : "Add Title to My Library"}
                 </button>
+
+                <div className="inner-book__tags--wrapper">
+                  {book.tags.map((tag, index) => (
+                    <span key={index} className="inner-book__tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
                 <div className="inner-book__about">
                   <h2 className="text-gray-900 mb-4 font-semibold text-3xl">

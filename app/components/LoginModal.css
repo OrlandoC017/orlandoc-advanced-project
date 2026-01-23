@@ -321,6 +321,23 @@
   margin-top: 24px;
 }
 
+.login-signup-link button {
+  background: none;
+  border: none;
+  color: #0365f2;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+}
+
+.login-signup-link button:hover {
+  color: #0252c4;
+  text-decoration: underline;
+}
+
 .login-signup-link a {
   color: #0365f2;
   text-decoration: none;

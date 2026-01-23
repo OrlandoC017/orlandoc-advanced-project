@@ -45,10 +45,33 @@ button:disabled {
   padding: 0 24px;
 }
 
+@media (max-width: 768px) {
+  .row {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .row {
+    padding: 0 12px;
+  }
+}
+
 .container {
   padding: 40px 0;
   width: 100%;
+}
 
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 0;
+  }
 }
 
 .wrapper {
@@ -59,6 +82,14 @@ button:disabled {
   margin-right: 200px;
   width: calc(100% - 200px);
   transition: all .3s;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
 }
 
 .btn {
@@ -73,6 +104,14 @@ button:disabled {
   align-items: center;
   justify-content: center;
   min-width: 180px;
+}
+
+@media (max-width: 480px) {
+  .btn {
+    height: 36px;
+    font-size: 14px;
+    min-width: 140px;
+  }
 }
 
 .btn:hover:not(:disabled) {
@@ -99,9 +138,29 @@ button:disabled {
   font-weight: bold;
 }
 
+@media (max-width: 768px) {
+  .section__title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section__title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+}
+
 /* NAVBAR */
 .nav {
   height: 80px;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    height: 60px;
+  }
 }
 
 .nav__wrapper {
@@ -115,13 +174,49 @@ button:disabled {
   padding: 0 24px;
 }
 
+@media (max-width: 768px) {
+  .nav__wrapper {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav__wrapper {
+    padding: 0 12px;
+  }
+}
+
 .nav__list--wrapper {
   display: flex;
   gap: 24px;
 }
 
+@media (max-width: 768px) {
+  .nav__list--wrapper {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav__list--wrapper {
+    display: none;
+  }
+}
+
 .nav__img--mask {
   max-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .nav__img--mask {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav__img--mask {
+    max-width: 120px;
+  }
 }
 
 .nav__img {
@@ -569,6 +664,12 @@ button:disabled {
   .remove--tablet {
     display: none;
   }
+}
+
+.plan__title {
+	font-size: 48px;
+	font-weight: 700;
+	margin-bottom: 40px;
 }
 
 @media (max-width: 576px) {

@@ -341,7 +341,7 @@ export default function Home() {
           </div>
           <div className="footer__copyright--wrapper">
             <div className="footer__copyright">
-              Copyright &copy; 2023 Summarist.
+              Copyright &copy; 2026 Summarist.
             </div>
           </div>
         </div>

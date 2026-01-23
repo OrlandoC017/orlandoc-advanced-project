@@ -109,3 +109,21 @@
 	color: #4a5568;
 	font-size: 15px;
 }
+
+.inner-book__tags--wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin: 32px 0;
+}
+
+.inner-book__tag {
+	display: inline-block;
+	background-color: #f0f7ff;
+	color: #0066cc;
+	padding: 8px 16px;
+	border-radius: 20px;
+	font-size: 14px;
+	font-weight: 600;
+	border: 1px solid #0066cc;
+}

@@ -1,64 +1,30 @@
-// For You Page //
+// Library Page //
 
 "use client";
 
-import { useEffect, useState } from "react";
-import "../for-you/style.css";
-import Selected from "../components/recommended";
-import LibraryScrollRecommended from "../components/LibraryScroll";
-import LibraryScrollSuggested from "../components/LibrarySuggested";
-import Searchbar from "../components/searchbar";
 import Sidebar from "../components/sidebar";
-import { SkeletonForYouPage } from "../components/SkeletonLoader";
+import { BookOpen } from "lucide-react";
+import "./style.css";
 
 export default function page() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate data loading - replace with actual API call if needed
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return (
-      <div>
-        
-        <main>
-          <section id="recommended">
-            <div className="for-you-container">
-              <div className="row">
-                <SkeletonForYouPage />
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
-    );
-  }
-  
   return (
     <div>
-   
       <Sidebar />
       <main>
-        <section id="recommended">
-          <div className="for-you-container">
-            
-            <div className="for-you-section">
-              <LibraryScrollRecommended />
-            </div>
-
-            <div className="for-you-section">
-              <LibraryScrollSuggested />
+        <section id="library" className="library-coming-soon">
+          <div className="library-coming-soon-container">
+            <div className="library-coming-soon-content">
+              <BookOpen size={64} className="library-icon" />
+              <h1>My Library</h1>
+              <p>This feature is coming soon!</p>
+              <p className="library-subtitle">
+                We're working hard to bring you a personalized library where you can save and organize your favorite books.
+              </p>
             </div>
           </div>
         </section>
       </main>
     </div>
-  )
+  );
 }
 

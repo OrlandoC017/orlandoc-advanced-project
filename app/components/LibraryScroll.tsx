@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Clock, StarIcon } from "lucide-react";
 import "keen-slider/keen-slider.min.css";
-import { useKeenSlider } from "keen-slider/react";
+import { useAuth } from "../context/AuthContext";
+import { SkeletonBooksSection } from "./SkeletonLoader";
 
 interface Book {
   id: string;
@@ -27,10 +28,28 @@ interface Book {
 
 const API_URL = `https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended`;
 
+const getAudioDuration = (audioLink: string): Promise<string> => {
+  return new Promise((resolve) => {
+    const audio = new Audio();
+    audio.onloadedmetadata = () => {
+      const minutes = Math.floor(audio.duration / 60);
+      const seconds = Math.floor(audio.duration % 60);
+      const formattedDuration = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+      resolve(formattedDuration);
+    };
+    audio.onerror = () => {
+      resolve("--:--");
+    };
+    audio.src = audioLink;
+  });
+};
+
 export default function LibraryScrollRecommended() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [durations, setDurations] = useState<{ [key: string]: string }>({});
+  const { isLoggedIn, userPlan } = useAuth();
 
 
   useEffect(() => {
@@ -42,6 +61,13 @@ export default function LibraryScrollRecommended() {
         }
         const data = await response.json();
         setBooks(data);
+
+        // Fetch durations for all books
+        const durationsMap: { [key: string]: string } = {};
+        for (const book of data) {
+          durationsMap[book.id] = await getAudioDuration(book.audioLink);
+        }
+        setDurations(durationsMap);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
@@ -52,7 +78,18 @@ export default function LibraryScrollRecommended() {
     fetchBooks();
   }, []);
 
-  if (loading) return null;
+  if (loading) {
+    return (
+      <>
+        <div className="skeleton-heading-text">
+          <div className="skeleton-section-title"></div>
+          <div className="skeleton-section-subtitle"></div>
+        </div>
+        <SkeletonBooksSection />
+      </>
+    );
+  }
+  
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -78,7 +115,7 @@ export default function LibraryScrollRecommended() {
                 alt={book.title}
                 className="book__image"
               />
-              {book.subscriptionRequired && (
+              {book.subscriptionRequired && userPlan !== 'premium' && (
                 <span
                   style={{
                     position: "absolute",
@@ -106,10 +143,10 @@ export default function LibraryScrollRecommended() {
             <div className="for-you__books--subtitle">
               <i>"{book.subTitle}"</i>
             </div>
-            <div className="flex justify-evenly">
+            <div className="flex justify-between px-4 w-full">
               <div className="flex items-center gap-2">
                 <Clock />
-                <span className="duration--time">{book.keyIdeas} Ideas</span>
+                <span className="duration--time">{durations[book.id] || "loading..."}</span>
               </div>
               <div className="flex items-center gap-2">
                 <StarIcon />

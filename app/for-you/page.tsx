@@ -9,41 +9,42 @@ import LibraryScrollRecommended from "../components/LibraryScroll";
 import LibraryScrollSuggested from "../components/LibrarySuggested";
 import Searchbar from "../components/searchbar";
 import Sidebar from "../components/sidebar";
-import { SkeletonForYouPage } from "../components/SkeletonLoader";
+import LoginModal from "../components/LoginModal";
+import { SkeletonSelectedBook, SkeletonBooksSection } from "../components/SkeletonLoader";
+import { useAuth } from "../context/AuthContext";
 
 export default function page() {
-  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
 
-  useEffect(() => {
-    // Simulate data loading - replace with actual API call if needed
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
+  if (!isLoggedIn) {
     return (
       <div>
-        
         <main>
           <section id="recommended">
             <div className="for-you-container">
-              <div className="row">
-                <SkeletonForYouPage />
+              <div className="login-placeholder">
+                <div className="login-placeholder-content">
+                  <h2>Welcome to the "For You" book hub.</h2>
+                  <p>Sign in to discover personalized book recommendations tailored just for you.</p>
+                  <button 
+                    className="login-placeholder-btn"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    Sign In
+                  </button>
+                </div>
               </div>
             </div>
           </section>
         </main>
+        <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
     );
   }
   
   return (
     <div>
-   
-      <Sidebar />
       <main>
         <section id="recommended">
           <div className="for-you-container">
@@ -62,6 +63,6 @@ export default function page() {
         </section>
       </main>
     </div>
-  )
+  );
 }
 

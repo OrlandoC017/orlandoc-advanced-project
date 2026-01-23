@@ -57,6 +57,24 @@ export const SkeletonBookCard = () => (
   </div>
 );
 
+export const SkeletonBookLink = () => (
+  <div className="for-you__books--link skeleton-book-link">
+    <div className="skeleton-card-image"></div>
+    <div className="skeleton-card-title"></div>
+    <div className="skeleton-card-author"></div>
+    <div className="skeleton-card-subtitle"></div>
+    <div className="skeleton-books-stats"></div>
+  </div>
+);
+
+export const SkeletonBooksSection = () => (
+  <div className="for-you__books">
+    {[...Array(5)].map((_, i) => (
+      <SkeletonBookLink key={i} />
+    ))}
+  </div>
+);
+
 export const SkeletonForYouPage = () => (
   <div className="skeleton-for-you-page">
     <div className="for-you-section">
@@ -93,32 +111,37 @@ export const SkeletonForYouPage = () => (
 );
 
 export const SkeletonBookPage = () => (
-  <div className="inner-wrapper">
-    <div className="book__main-info">
-      <div className="skeleton-book-title"></div>
-      <div className="skeleton-book-author"></div>
-      <div className="skeleton-book-subtitle"></div>
-      <div className="inner__book-description--wrapper">
-        <div className="skeleton-book-description-item"></div>
-        <div className="skeleton-book-description-item"></div>
-        <div className="skeleton-book-description-item"></div>
-        <div className="skeleton-book-description-item"></div>
-      </div>
-      <div className="inner__book-button--wrapper">
-        <div className="skeleton-button"></div>
-        <div className="skeleton-button"></div>
-      </div>
-      <div className="skeleton-book-bookmark"></div>
-      <div className="inner-book__about skeleton-about">
-        <div className="skeleton-book-about-title"></div>
-        <div className="skeleton-book-about-text"></div>
-        <div className="skeleton-book-about-text"></div>
-      </div>
-      <div className="inner-book__about skeleton-about">
-        <div className="skeleton-book-about-title"></div>
-        <div className="skeleton-book-about-text"></div>
-        <div className="skeleton-book-about-text"></div>
+  <>
+    <div className="inner-wrapper">
+      <div className="book__main-info">
+        <div className="skeleton-book-title"></div>
+        <div className="skeleton-book-author"></div>
+        <div className="skeleton-book-subtitle"></div>
+        <div className="inner__book-description--wrapper">
+          <div className="skeleton-book-description-item"></div>
+          <div className="skeleton-book-description-item"></div>
+          <div className="skeleton-book-description-item"></div>
+          <div className="skeleton-book-description-item"></div>
+        </div>
+        <div className="inner__book-button--wrapper">
+          <div className="skeleton-button"></div>
+          <div className="skeleton-button"></div>
+        </div>
+        <div className="skeleton-book-bookmark"></div>
+        <div className="inner-book__about skeleton-about">
+          <div className="skeleton-book-about-title"></div>
+          <div className="skeleton-book-about-text"></div>
+          <div className="skeleton-book-about-text"></div>
+        </div>
+        <div className="inner-book__about skeleton-about">
+          <div className="skeleton-book-about-title"></div>
+          <div className="skeleton-book-about-text"></div>
+          <div className="skeleton-book-about-text"></div>
+        </div>
       </div>
     </div>
-  </div>
+    <div className="inner-book__img--wrapper">
+      <div className="skeleton-book-image"></div>
+    </div>
+  </>
 );
