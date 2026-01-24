@@ -226,7 +226,7 @@ export default function Home() {
             </div>
           </div>
           <div className="reviews__btn--wrapper">
-            <button className="btn home__cta--btn">Login</button>
+            <button className="btn home__cta--btn" onClick={() => setIsOpen(true)}>Login</button>
           </div>
         </div>
       </div>
@@ -245,6 +245,9 @@ export default function Home() {
             </div>
             <div className="numbers">
               <div className="numbers__icon numbers__star--icon">
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
                 <BsStarFill />
                 <BsStarHalf />
               </div>
